@@ -6,6 +6,7 @@ import cv2
 #	Reference: https://www.pyimagesearch.com/2016/02/15/determining-object-color-with-opencv/
 class ColorDetector:	
 	def __init__(self):
+		#	TODO: Implement color list importing https://www.rapidtables.com/web/color/RGB_Color.html
 		colors = OrderedDict({
 			"white": (255,255,255),
 			"silver": (191,191,191),
@@ -13,20 +14,26 @@ class ColorDetector:
 			"black": (0,0,0),
 			"red": (255,0,0),
 			"maroon": (127,0,0),
+			"orange": (255,127,0),
 			"yellow": (255,255,0),
 			"olive": (127,127,0),
 			"lime": (0,255,0),
 			"green": (0,127,0),
 			"cyan": (0,255,255),
 			"teal": (0,127,127),
-			"blue": (0,0,255),
+			"blue": (0,127,255),
+			"indigo": (0,0,255),
 			"navy": (0,0,127),
 			"magenta": (255,0,255),
-			"purple": (127,0,127)
+			"purple": (127,0,255),
+			"brown": (102,51,0),
+			"tan": (150,90,60)
 		})
 		
+
+		
 		self.lab = np.zeros((len(colors), 1, 3), dtype="uint8")
-		self.colorNames[]
+		self.colorNames = []
 		
 		#	Update the array and the color names list
 		for (i, (name, rgb)) in enumerate(colors.items()):
@@ -36,7 +43,7 @@ class ColorDetector:
 		#	Convert the array from the RGB color space to LAB color space
 		self.lab = cv2.cvtColor(self.lab, cv2.COLOR_RGB2LAB)
 		
-	def labeler(self, image, contour):
+	def label(self, image, contour):
 		#	Create a mask for the contour and compute average color in contour
 		mask = np.zeros(image.shape[:2], dtype="uint8")
 		cv2.drawContours(mask, [contour], -1, 255, -1)
