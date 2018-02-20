@@ -1,6 +1,7 @@
 #	Imports
 from basicdetector.shapedetector import ShapeDetector
 from basicdetector.circledetector import CircleDetector
+from basicdetector.colordetector import ColorDetector
 import cv2
 import imutils
 import argparse
@@ -15,9 +16,10 @@ args = vars(ap.parse_args())
 
 #	Pre-process our image
 image = cv2.imread(args["image"])
-grayedImage = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-blurredImage = cv2.GaussianBlur(grayedImage, (1, 1), 0)
-shapeThresh = cv2.threshold(blurredImage, 160, 255, cv2.THRESH_BINARY_INV)[1]
+blurredImage = cv2.GaussianBlur(image, (1, 1), 0)
+grayedImage = cv2.cvtColor(blurredImage, cv2.COLOR_BGR2GRAY)
+labImage = cv2.cvtColor(blurredImage, cv2.COLOR_BGR2LAB)
+shapeThresh = cv2.threshold(grayedImage, 160, 255, cv2.THRESH_BINARY_INV)[1]
 
 #	Find shape contours in the new optimized image
 #	Reference: https://www.pyimagesearch.com/2015/08/10/checking-your-opencv-version-using-python/
@@ -29,6 +31,7 @@ else:
 	
 shapeD = ShapeDetector()	#	Create our shape detector
 circleD = CircleDetector()	#	Create our circle detector
+colorD = ColorDetector()	#	Create our color detector
 
 for c in contours:	#	Loop over each contour in contours
 	#	Compute the center of the contour
@@ -39,6 +42,7 @@ for c in contours:	#	Loop over each contour in contours
 	centerX = int(moment["m10"] / moment["m00"])
 	centerY = int(moment["m01"] / moment["m00"])
 	shape = shapeD.detectShape(c)
+	color = colorD.label(labImage, c)
 	
 	if shape == "unidentified":
 		shape = circleD.detectCircle(c)
@@ -48,8 +52,9 @@ for c in contours:	#	Loop over each contour in contours
 	cv2.drawContours(image, [c], -1, (0,255,0), 2)
 	cv2.circle(image, (centerX, centerY), 3, (0,255,0), -1)
 	#	Draw text twice, making it stand out better from the background
-	cv2.putText(image, shape, (centerX-24, centerY-8), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,0), 3)
-	cv2.putText(image, shape, (centerX-24, centerY-8), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
+	text = "{} {}".format(color, shape)
+	cv2.putText(image, text, (centerX-24, centerY-8), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,0), 3)
+	cv2.putText(image, text, (centerX-24, centerY-8), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
 	
 		
 #	Display the image
