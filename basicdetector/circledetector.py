@@ -1,21 +1,44 @@
 #	Imports
 import cv2
 import numpy as np
+import math
 
-class ShapeDetector:
+class CircleDetector:
 	def __init__(self):
 		pass
+	
+	def detectCircle(self, contour):
+		shape = "unidentified"
+		perimeter = cv2.arcLength(contour, True)
+		(centerX, centerY), enclosedRad = cv2.minEnclosingCircle(contour)
 		
-	img = cv2.imread('opencv_logo.png',0)
-	img = cv2.medianBlur(img,5)
-	cimg = cv2.cvtColor(img,cv2.COLOR_GRAY2BGR)
+		#	Determine the most extreme points towards the left, right, top, and bottom, along the contour
+		extLft = tuple(contour[contour[:, :, 0].argmin()][0])
+		extRgt = tuple(contour[contour[:, :, 0].argmax()][0])
+		extTop = tuple(contour[contour[:, :, 1].argmin()][0])
+		extBot = tuple(contour[contour[:, :, 1].argmax()][0])
+		
+		distLft = math.sqrt((centerX - extLft[0])**2 + (centerY - extLft[1])**2)
+		distRgt = math.sqrt((centerX - extRgt[0])**2 + (centerY - extRgt[1])**2)
+		distTop = math.sqrt((centerX - extTop[0])**2 + (centerY - extTop[1])**2)
+		distBot = math.sqrt((centerX - extBot[0])**2 + (centerY - extBot[1])**2)
+		
+		if ((distLft/enclosedRad) <= 1.03 and (distLft/enclosedRad) >= 0.97) and ((distRgt/enclosedRad) <= 1.03 and (distRgt/enclosedRad) >= 0.97) and ((distTop/enclosedRad) <= 1.03 and (distTop/enclosedRad) >= 0.97) and ((distBot/enclosedRad) <= 1.03 and (distBot/enclosedRad) >= 0.97):
+			shape = "circle"
 
-	circles = cv2.HoughCircles(img,cv2.HOUGH_GRADIENT,1,20,
-								param1=50,param2=30,minRadius=0,maxRadius=0)
-
-	circles = np.uint16(np.around(circles))
-	for i in circles[0,:]:
-		# draw the outer circle
-		cv2.circle(cimg,(i[0],i[1]),i[2],(0,255,0),2)
-		# draw the center of the circle
-		cv2.circle(cimg,(i[0],i[1]),2,(0,0,255),3)
+		# perimeter2 = 2.0 * 3.14159 * avgDist
+		# perimeter3 = 2.0 * 3.14159 * enclosedRad
+		# perimeterRatio = perimeter2/perimeter
+		# perimeterRatio2 = perimeter3/perimeter
+		
+		# print(str(perimeter))
+		# print(str(perimeter2))
+		# print(str(perimeter3))
+		# print(str(perimeterRatio))
+		# print(str(perimeterRatio2))
+		# print("----")
+		
+		# if (perimeterRatio2 <= 1.03 and perimeterRatio2 >= 0.97):
+			# shape = "circle"
+			
+		return shape;
