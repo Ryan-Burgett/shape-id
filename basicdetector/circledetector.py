@@ -25,20 +25,5 @@ class CircleDetector:
 		
 		if ((distLft/enclosedRad) <= 1.03 and (distLft/enclosedRad) >= 0.97) and ((distRgt/enclosedRad) <= 1.03 and (distRgt/enclosedRad) >= 0.97) and ((distTop/enclosedRad) <= 1.03 and (distTop/enclosedRad) >= 0.97) and ((distBot/enclosedRad) <= 1.03 and (distBot/enclosedRad) >= 0.97):
 			shape = "circle"
-
-		# perimeter2 = 2.0 * 3.14159 * avgDist
-		# perimeter3 = 2.0 * 3.14159 * enclosedRad
-		# perimeterRatio = perimeter2/perimeter
-		# perimeterRatio2 = perimeter3/perimeter
 		
-		# print(str(perimeter))
-		# print(str(perimeter2))
-		# print(str(perimeter3))
-		# print(str(perimeterRatio))
-		# print(str(perimeterRatio2))
-		# print("----")
-		
-		# if (perimeterRatio2 <= 1.03 and perimeterRatio2 >= 0.97):
-			# shape = "circle"
-			
 		return shape;
