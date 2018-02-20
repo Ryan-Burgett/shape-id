@@ -15,7 +15,7 @@ class ShapeDetector:
 		#	OpenCV says that the second parameter passed to the function should be between
 		#	one and five percent of the contour perimeter to get the best approximation,
 		#	So here I have used three percent. This may be adjusted after testing.
-		approximation = cv2.approxPolyDP(contour, 0.02 * perimeter, True)
+		approximation = cv2.approxPolyDP(contour, 0.01 * perimeter, True)
 		
 		if len(approximation) == 3: 	#	If the shape has 3 vertices, must be a triangle
 			shape = "triangle"
@@ -24,7 +24,7 @@ class ShapeDetector:
 			#	w is width, h is height.
 				(x, y, w, h) = cv2.boundingRect(approximation)
 				aspectRatio = w / float(h)
-				if aspectRatio <= 1.03 and aspectRatio >= 0.97:
+				if aspectRatio <= 1.05 and aspectRatio >= 0.95:
 					shape = "square"
 				else:
 					shape = "rectangle"
@@ -36,10 +36,5 @@ class ShapeDetector:
 			shape = "heptagon"
 		elif len(approximation) == 8:	#	If the shape has 8 vertices, must be a octagon
 			shape = "octagon"
-		elif len(approximation) == 9:	#	If the shape has 9 vertices, must be a nonagon
-			shape = "nonagon"
-		elif len(approximation) == 10:	#	If the shape has 10 vertices, must be a decagon
-			shape = "decagon"
-		#	TODO: Add support for more shapes/special shapes
 		
 		return shape
