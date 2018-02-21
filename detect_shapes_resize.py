@@ -24,7 +24,7 @@ resizeRatio = image.shape[0] / float(resized.shape[0])	#	Keeps track of the rati
 blurredImage = cv2.GaussianBlur(resized, (1, 1), 0)
 grayedImage = cv2.cvtColor(blurredImage, cv2.COLOR_BGR2GRAY)
 labImage = cv2.cvtColor(blurredImage, cv2.COLOR_BGR2LAB)
-shapeThresh = cv2.threshold(grayedImageImage, 160, 255, cv2.THRESH_BINARY_INV)[1]
+shapeThresh = cv2.adaptiveThreshold(grayedImage, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 3, 2)
 
 #	Find shape contours in the new optimized image
 #	Reference: https://www.pyimagesearch.com/2015/08/10/checking-your-opencv-version-using-python/
@@ -44,8 +44,12 @@ for c in contours:	#	Loop over each contour in contours
 	
 	#	These must be integers as they correspond to pixel values in our image
 	#	Reference: https://docs.opencv.org/3.1.0/dd/d49/tutorial_py_contour_features.html
-	centerX = int(resizeRatio * (moment["m10"] / moment["m00"]))
-	centerY = int(resizeRatio * (moment["m01"] / moment["m00"]))
+	if moment["m00"] != 0:
+		centerX = int(resizeRatio * (moment["m10"] / moment["m00"]))
+		centerY = int(resizeRatio * (moment["m01"] / moment["m00"]))
+	else:
+		centerX, centerY = 0, 0
+
 	shape = shapeD.detectShape(c)
 	color = colorD.label(labImage, c)
 	
@@ -66,7 +70,6 @@ for c in contours:	#	Loop over each contour in contours
 	cv2.putText(image, text, (centerX-24, centerY-8), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,0), 3)
 	cv2.putText(image, text, (centerX-24, centerY-8), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
 	
-		
 #	Display the image
 cv2.imshow("Image", image)
 cv2.waitKey(0)
