@@ -5,26 +5,26 @@ A collection of python progams using OpenCV to attempt to identify basic shapes 
 
 TODO(ideas):
 
-  ✔Shape detection
+  ✓Shape detection
   
-  ✔Shape distinction
+  ✓Shape distinction
     
-      ✔Circle
+      ✓Circle
     
-      ✔Triangle
+      ✓Triangle
     
-      ✔Square vs rectangle
+      ✓Square vs rectangle
     
-      ✔Pentagon-octagon
+      ✓Pentagon-octagon
     
-      ❌Ellipse
+      ✗Ellipse
   
-  ✔Color recognition
+  ✓Color recognition
   
   -Area of shapes
   
   -Basic object recognition
   
-  ✔Face detection
+  ✓Face detection
   
   -Face recognition
