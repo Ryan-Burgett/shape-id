@@ -1,6 +1,6 @@
 # OpenCV Properties Identifier
 
-A collection of python progams using OpenCV to attempt to identify basic shapes and colors.
+A collection of python progams using OpenCV to attempt to identify basic shapes, colors, text, objects, faces, etc.
 
 
 ## TODO(ideas):
