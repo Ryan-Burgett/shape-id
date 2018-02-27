@@ -15,7 +15,13 @@ class FaceDetector:
 		)
 	#	Attempt eye detection
 	def detectEyes(self, image, cascade):
-		return cascade.detectMultiScale(image, 1.1, 3)
+		return cascade.detectMultiScale(
+			image,
+			scaleFactor = 1.0125,
+			minNeighbors = 5,
+			minSize = (20, 20),
+			flags = cv2.CASCADE_SCALE_IMAGE
+		)
 	#	Prepare training data for face recognition, Ignore this for now
 	def readyTrainingData(path, cascade):
 		dirList = os.listdir(path)
