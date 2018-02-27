@@ -3,32 +3,36 @@
 A collection of python progams using OpenCV to attempt to identify basic shapes and colors.
 
 
-TODO(ideas):
+## TODO(ideas):
 
-  ✓Shape detection
+  - [x] Shape detection
   
-  ✓Shape distinction
+  - [x] Shape distinction
     
-      ✓Circle
+      - [x] Circle
     
-      ✓Triangle
+      - [x] Triangle
     
-      ✓Square vs rectangle
+      - [x] Square vs rectangle
     
-      ✓Pentagon-octagon
+      - [x] Pentagon-octagon
     
-      ✗Ellipse
+      - [ ] ~~Ellipse~~(Abandoned)
   
-  ✓Color recognition
+  - [x] Color recognition
   
-  -Area of shapes
+  - [ ] Area of shapes
   
-  -Basic object recognition
+  - [ ] Basic object recognition
   
-  -Text recognition (OCR)
+  - [ ] Text recognition (OCR)
   
-  ✓Face detection
+  - [x] Face detection
   
-  ✓Eye tracking
+  - [x] Eye tracking
   
-  -Face recognition
+  - [ ] Face recognition
+  
+  - [ ] Add support for live video feed
+  
+      - [ ] Object tracking
