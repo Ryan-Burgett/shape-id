@@ -25,6 +25,10 @@ TODO(ideas):
   
   -Basic object recognition
   
+  -Text recognition (OCR)
+  
   ✓Face detection
+  
+  ✓Eye tracking
   
   -Face recognition
