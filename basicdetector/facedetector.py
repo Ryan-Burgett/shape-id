@@ -17,9 +17,9 @@ class FaceDetector:
 	def detectEyes(self, image, cascade):
 		return cascade.detectMultiScale(
 			image,
-			scaleFactor = 1.0125,
+			scaleFactor = 1.02,
 			minNeighbors = 5,
-			minSize = (20, 20),
+			minSize = (15, 15),
 			flags = cv2.CASCADE_SCALE_IMAGE
 		)
 	#	Prepare training data for face recognition, Ignore this for now
