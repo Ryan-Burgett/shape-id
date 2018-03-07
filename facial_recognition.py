@@ -58,3 +58,6 @@ print("Data Prepared")
 
 print("Total faces: ", len(faces))
 print("Total labels: ", len(labels))
+
+face_recognizer = cv2.face.createLBPHFaceREcognizer()
+face_recognizer.train(faces, np.array(labels))
