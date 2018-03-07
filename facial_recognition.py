@@ -53,7 +53,7 @@ def prep_data(data_folder_path):
     return faces, labels
 
 print("Preparing Data....")
-faces, labels = prep_data("Images")
+faces, labels = prep_data("Faces")
 print("Data Prepared")
 
 print("Total faces: ", len(faces))
