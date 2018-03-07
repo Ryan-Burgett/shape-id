@@ -21,11 +21,11 @@ A collection of python progams using OpenCV to attempt to identify basic shapes,
   
   - [x] Color recognition
   
-  - [ ] Area of shapes
+  - [x] Area of shapes
   
   - [ ] Basic object recognition
   
-  - [X] Text recognition (OCR)      **NOTE:** Requires Tesseract-OCR and Pytesseract libraries
+  - [X] Text recognition (OCR) -- **NOTE:** Requires Tesseract-OCR and Pytesseract libraries
   
   - [x] Face detection
   
@@ -35,4 +35,6 @@ A collection of python progams using OpenCV to attempt to identify basic shapes,
   
   - [ ] Add support for live video feed
   
-      - [ ] Object tracking
+  - [ ] Add support for detecting from video file
+  
+  - [ ] Object tracking
