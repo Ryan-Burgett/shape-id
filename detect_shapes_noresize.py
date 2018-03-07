@@ -11,6 +11,8 @@ import numpy as np
 ap = argparse.ArgumentParser()
 #	Creates arg -i for image and requires it for operation
 ap.add_argument("-i", "--image", required=True, help = "path to the image to be parsed")
+ap.add_argument("--color", help="include the color of the contour", action="store_true")
+ap.add_argument("--area", help="include the area of the contour", action="store_true")
 #	Parse our args
 args = vars(ap.parse_args())
 
@@ -31,7 +33,8 @@ else:
 	
 shapeD = ShapeDetector()	#	Create our shape detector
 circleD = CircleDetector()	#	Create our circle detector
-colorD = ColorDetector()	#	Create our color detector
+if args["color"]:
+	colorD = ColorDetector()	#	Create our color detector only if the --color flag is used
 
 for c in contours:	#	Loop over each contour in contours
 	#	Compute the center of the contour
@@ -46,7 +49,14 @@ for c in contours:	#	Loop over each contour in contours
 		centerX, centerY = 0, 0
 	
 	shape = shapeD.detectShape(c)
-	color = colorD.label(labImage, c)
+	
+	if args["color"]:
+		color = colorD.label(labImage, c)	#	Label colors
+	
+	#	Calculates the area of the contour(in non-null pixels)
+	if args["area"]:
+		area = cv2.contourArea(c)
+		areaText = "area: {}".format(area)
 	
 	if shape == "unidentified":
 		shape = circleD.detectCircle(c)
@@ -55,11 +65,19 @@ for c in contours:	#	Loop over each contour in contours
 	#	Reference: https://www.pyimagesearch.com/2016/02/01/opencv-center-of-contour/
 	cv2.drawContours(image, [c], -1, (0,255,0), 2)
 	cv2.circle(image, (centerX, centerY), 3, (0,255,0), -1)
+	#	Determine what text to display
+	if args["color"]:
+		text = "{} {}".format(color, shape)
+	else:
+		text = "{}".format(shape)
 	#	Draw text twice, making it stand out better from the background
-	text = "{} {}".format(color, shape)
 	cv2.putText(image, text, (centerX-24, centerY-8), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,0), 3)
 	cv2.putText(image, text, (centerX-24, centerY-8), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
-	
+	#	Determine if we should display the area
+	if args["area"]:
+		cv2.putText(image, areaText, (centerX-24, centerY+8), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,0), 3)
+		cv2.putText(image, areaText, (centerX-24, centerY+8), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
+		
 #	Display the image
 cv2.imshow("Image", image)
 cv2.waitKey(0)
