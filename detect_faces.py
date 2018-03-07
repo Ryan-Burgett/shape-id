@@ -10,7 +10,7 @@ import time
 
 #	Construct an argument parser
 ap = argparse.ArgumentParser()
-#	Creates our args
+#	Creates ou args
 ap.add_argument("-i", "--image", required=True, help = "path to the image to be parsed")
 ap.add_argument("-c", "--cascade", required=True, help = "path to the face cascade")
 ap.add_argument("-e", "--eyes", help = "include this flag to scan faces for eyes", action="store_true")
