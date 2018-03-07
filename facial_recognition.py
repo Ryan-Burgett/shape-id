@@ -8,7 +8,7 @@ def detect_face(img):
     #load LBP face Detector
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     #Problem in Line 11
-    face_cascade = cv2.CascadeClassifier('opencv-files/lbpcascade_frontalface.xml')
+    face_cascade = cv2.CascadeClassifier('cascades/lbpcascade_frontalface.xml')
     faces = face_cascade.detectMultiScale(gray, scaleFactor = 1.2, minNeighbors = 5)
     if(len(faces)== 0):
         return None,None
