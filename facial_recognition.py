@@ -61,39 +61,3 @@ print("Total labels: ", len(labels))
 
 face_recognizer = cv2.face.createLBPHFaceRecognizer()
 face_recognizer.train(faces, np.array(labels))
-
-
-def draw_rectangle(img, rect):
-    (x, y, w, h) = rect
-    cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
-
-def draw_text(img, text, x, y):
-    cv2.putText(img, text, (x, y), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
-
-def predict(test_img):
-    img = test_img.copy()
-    face, rect = detect_face(img)
-    label = face_recognizer.predict(face)
-    label_text = subjects[label]
-
-    draw_rectangle(img, rect)
-    draw_text(img, label_text, rect[0], rect[1]-5)
-
-    return img
-
-print("Predicting images...")
-
-#load test Images
-test_img1 = cv2.imread("test-data/test1.jpg")
-test_img2 = cv2.imread("test-data/test2.jpg")
-
-#Make a prediction
-predicted_img1 = predict(test_img1)
-predicted_img2 = predict(test_img2)
-
-print("Prediction complete")
-
-cv2.imshow(subjects[1], predicted_img1)
-cv2.imshow(subjects[2], predicted_img2)
-cv2.waitKey(0)
-cv2.destroyAllWondows()
