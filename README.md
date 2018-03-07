@@ -25,7 +25,7 @@ A collection of python progams using OpenCV to attempt to identify basic shapes,
   
   - [ ] Basic object recognition
   
-  - [ ] Text recognition (OCR)
+  - [X] Text recognition (OCR)      **NOTE:** Requires Tesseract-OCR and Pytesseract libraries
   
   - [x] Face detection
   
