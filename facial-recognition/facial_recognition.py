@@ -5,7 +5,7 @@ import numpy as np
 subjects = ["Luke Safris", "Ryan Burgett", "Aidan", "Amy", "Chase", "Allison", "Steven", "Michael", "Alvin", "Toby", "Kelly", "Rodger", "Jordan",
 "Ahmir", "Dilwyn", "Bernard", "Jerrard", "Wong", "George", "Sherman", "Kelvin", "Xiao", "Tre", "Braden", "Lucas", "Lyle", "Alexa", "Damion", "Herby",
 "Ross", "Jules", "Dennis", "Dwight", "Darren", "Blake", "Aaron", "Mitchell", "Ghandi", "Hamilton", "Hawking", "Walter", "Miranda", "Debra", "Shalysa", "Simba", "Washington",
-"Mufasa", "Joey", "Chandler", "Landon", "Kyle"]
+"Mufasa", "Joey", "Chandler", "Landon", "Kyle", "Guy Fieri", "Mr. Worldwide"]
 
 def detect_face(img):
     #load LBP face Detector
