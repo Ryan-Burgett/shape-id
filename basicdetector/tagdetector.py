@@ -89,6 +89,7 @@ class TagDetector:
 				cv2.imwrite(tempfile, cropped)
 				#	Attempt OCR and delete temp file
 				str = pytesseract.image_to_string(Image.open(tempfile))
+				os.remove(tempfile)
 			if not str == "":
 				print(str)
 				return str
