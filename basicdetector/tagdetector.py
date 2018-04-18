@@ -50,10 +50,6 @@ class TagDetector:
 			ratio = boxHeight / boxWidth
 			if ratio > 1.25 or ratio < 0.3:
 				continue
-			cv2.rectangle(image, (leftCol,topRow), (rightCol,botRow), (0,255,0), 2)
-			
-		cv2.imshow("Image", image)
-		cv2.waitKey(0)
 		
 		for r in regionprops(labels):
 			#	adjust this value for testing
@@ -81,8 +77,6 @@ class TagDetector:
 			morphKernel = np.ones((3,3),np.uint8)
 			roi = cv2.morphologyEx(roi, cv2.MORPH_OPEN, morphKernel)
 
-			cv2.imshow("Image", roi)
-			cv2.waitKey(0)
 			#	Save our processed image as a temp file so we can attempt OCR
 			tempfile = "{}.png".format(os.getpid())
 			cv2.imwrite(tempfile, roi)
@@ -95,8 +89,6 @@ class TagDetector:
 				cv2.imwrite(tempfile, cropped)
 				#	Attempt OCR and delete temp file
 				str = pytesseract.image_to_string(Image.open(tempfile))
-				cv2.imshow("Image", cropped)
-				cv2.waitKey(0)
 			if not str == "":
 				print(str)
 				return str
