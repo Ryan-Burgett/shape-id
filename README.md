@@ -31,7 +31,9 @@ A collection of python progams using OpenCV to attempt to identify basic shapes,
   
   - [x] Eye tracking
   
-  - [ ] Face recognition
+  - [x] Face recognition
+  
+  - [x] Name tag reader
   
   - [ ] Add support for live video feed
   
