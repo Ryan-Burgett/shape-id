@@ -14,6 +14,6 @@ args = vars(ap.parse_args())
 #	Pre-process our image
 image = cv2.imread(args["image"])
 
-# Attempt to detect name tag in the image
+#	Attempt to detect name tag in the image
 tagD = TagDetector()
 tag = tagD.detectTag(image)
