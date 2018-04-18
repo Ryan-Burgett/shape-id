@@ -11,12 +11,14 @@ from basicdetector.colordetector import ColorDetector
 
 #	Construct an argument parser
 ap = argparse.ArgumentParser()
+
 #	Creates arg -i for image and requires it for operation
 ap.add_argument("-i", "--image", required=True, help = "path to the image to be parsed")
 ap.add_argument("--color", help="include the color of the contour", action="store_true")
 ap.add_argument("--area", help="include the area of the contour", action="store_true")
 ap.add_argument("--filter", help="Use advanced filtering method for noisy images", action="store_true")
 ap.add_argument("-w", "--width", required=True, help = "width to use for the resized image. MUST BE THE LAST ARGUMENT")
+
 #	Parse our args
 args = vars(ap.parse_args())
 
@@ -39,8 +41,10 @@ resized = imutils.resize(image, width = w)
 
 #	Write the resized image to a temp file
 cv2.imwrite('temp.png',resized)
+
 #	Format and call our command for detect_shapes
 command = "python detect_shapes.py {}".format(rawArgs)
 os.system(command)
+
 #	Delete the temp image
 os.remove('temp.png')
