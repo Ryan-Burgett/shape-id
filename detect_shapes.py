@@ -9,36 +9,40 @@ from basicdetector.colordetector import ColorDetector
 
 #	Construct an argument parser
 ap = argparse.ArgumentParser()
+
 #	Creates arg -i for image and requires it for operation
 ap.add_argument("-i", "--image", required=True, help = "path to the image to be parsed")
 ap.add_argument("--color", help="include the color of the contour", action="store_true")
 ap.add_argument("--area", help="include the area of the contour", action="store_true")
 ap.add_argument("--filter", help="Use advanced filtering method for noisy images", action="store_true")
+
 #	Parse our args
 args = vars(ap.parse_args())
 
 #	Pre-process our image
 image = cv2.imread(args["image"])
 height, width, channels = image.shape
-#	cv2.imshow("Image", shapeThresh)
-#	cv2.waitKey(0)
+
+#	Determine our blur factor
 blurFactor = int(width*.01)
 if blurFactor % 2 == 0:
 	blurFactor = blurFactor + 1
 
+#	Process the image
 bilateralImage = cv2.bilateralFilter(image, 2*blurFactor+1, 5*blurFactor, blurFactor)
 blurredImage = cv2.GaussianBlur(bilateralImage, (blurFactor, blurFactor), 0)
 grayedImage = cv2.cvtColor(blurredImage, cv2.COLOR_BGR2GRAY)
 labImage = cv2.cvtColor(blurredImage, cv2.COLOR_BGR2LAB)
 shapeThresh = cv2.adaptiveThreshold(grayedImage, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 7, 2)
 
+#	If we have --filter flag, ready the image for advanced processing
 if args["filter"]:
 	threshx = int(blurFactor/2);
 	if threshx % 2 == 0:
 		threshx = threshx + 1
 	shapeThresh = cv2.adaptiveThreshold(grayedImage, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, threshx, 2)
 
-#	Everything after this is added and experimental
+#	Advanced image filtering
 if args["filter"]:
 	blurFactor = int(width*.005)
 	if blurFactor % 2 == 0:
@@ -64,7 +68,6 @@ if args["filter"]:
 	shapeThresh = cv2.morphologyEx(shapeThresh, cv2.MORPH_CLOSE, morphKernel)
 	shapeThresh = cv2.erode(shapeThresh, kernel, iterations = 2)
 	
-	#	End experimental filtering
 else:
 	blurFactor = int(width*.0025)
 	kernel = np.ones((blurFactor,blurFactor),np.uint8)
@@ -106,7 +109,6 @@ if args["filter"]:
 
 	masked = cv2.bitwise_and(shapeThresh, shapeThresh, mask=mask)
 	
-	#Experimental
 	cv2.imshow("Image", masked)
 	cv2.waitKey(0)
 	
@@ -162,14 +164,17 @@ for c in contours:	#	Loop over each contour in contours
 	if not args["filter"]:
 		cv2.drawContours(image, [c], -1, (0,255,0), 2)
 	cv2.circle(image, (centerX, centerY), int(width/500 + 2), (0,255,0), -1)
+	
 	#	Determine what text to display
 	if args["color"]:
 		text = "{} {}".format(color, shape)
 	else:
 		text = "{}".format(shape)
+	
 	#	Draw text twice, making it stand out better from the background
 	cv2.putText(image, text, (centerX-24, centerY-8), cv2.FONT_HERSHEY_SIMPLEX, width/2000, (0,0,0), int(width/250 + 3))
 	cv2.putText(image, text, (centerX-24, centerY-8), cv2.FONT_HERSHEY_SIMPLEX, width/2000, (255,255,255), int(width/1000 + 1))
+	
 	#	Determine if we should display the area
 	if args["area"]:
 		cv2.putText(image, areaText, (centerX-24, centerY+8), cv2.FONT_HERSHEY_SIMPLEX, width/2000, (0,0,0), int(width/250 + 3))
