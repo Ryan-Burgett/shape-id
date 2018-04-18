@@ -4,6 +4,7 @@ import cv2
 class FaceDetector:
 	def __init__(self):
 		pass
+
 	#	Attempt face detection
 	def detectFace(self, image, cascade):
 		return cascade.detectMultiScale(
@@ -13,6 +14,7 @@ class FaceDetector:
 			minSize = (30, 30),
 			flags = cv2.CASCADE_SCALE_IMAGE
 		)
+	
 	#	Attempt eye detection
 	def detectEyes(self, image, cascade):
 		return cascade.detectMultiScale(
@@ -22,6 +24,7 @@ class FaceDetector:
 			minSize = (15, 15),
 			flags = cv2.CASCADE_SCALE_IMAGE
 		)
+	
 	#	Prepare training data for face recognition, Ignore this for now
 	def readyTrainingData(path, cascade):
 		dirList = os.listdir(path)
