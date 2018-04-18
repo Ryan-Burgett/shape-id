@@ -32,13 +32,6 @@ class TagDetector:
 		#binaryImage = cv2.threshold(blurredImage, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
 		binaryImage = cv2.adaptiveThreshold(blurredImage, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 3, 2)
 		
-		cv2.imshow("Image", image)
-		cv2.waitKey(0)
-		cv2.imshow("Image", blurredImage)
-		cv2.waitKey(0)
-		cv2.imshow("Image", binaryImage)
-		cv2.waitKey(0)
-		
 		labels = measure.label(binaryImage)
 
 		for r in regionprops(labels):
@@ -82,6 +75,7 @@ class TagDetector:
 			cv2.imwrite(tempfile, roi)
 			#	Attempt OCR and delete temp file
 			str = pytesseract.image_to_string(Image.open(tempfile))
+			os.remove(tempfile)
 			if not str == "":
 				print(str)
 			else:
@@ -95,7 +89,6 @@ class TagDetector:
 				return str
 			else:
 				print("No name recognized in this region. Moving on.")
-			os.remove(tempfile)
 			
 		print("Complete")
 		return "unknown"
