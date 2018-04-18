@@ -30,8 +30,6 @@ class ColorDetector:
 			"tan": (150,90,60)
 		})
 		
-
-		
 		self.lab = np.zeros((len(colors), 1, 3), dtype="uint8")
 		self.colorNames = []
 		
