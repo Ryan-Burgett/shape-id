@@ -1,19 +1,18 @@
 #	Imports
-from basicdetector.facedetector import FaceDetector
-# from imutils.video import VideoStream
-# from imutils.video import FPS
-import cv2
-import imutils
 import argparse
-import numpy as np
-import time
-
+import cv2
+# import imutils
+# import numpy as np
+# import time
+from basicdetector.facedetector import FaceDetector
+# from imutils.video import FPS
+# from imutils.video import VideoStream
 #	Construct an argument parser
 ap = argparse.ArgumentParser()
 #	Creates our args
-ap.add_argument("-i", "--image", required=True, help = "path to the image to be parsed")
-ap.add_argument("-c", "--cascade", required=True, help = "path to the face cascade")
-ap.add_argument("-e", "--eyes", help = "include this flag to scan faces for eyes", action="store_true")
+ap.add_argument("-i", "--image", required=True, help="path to the image to be parsed")
+ap.add_argument("-c", "--cascade", required=True, help="path to the face cascade")
+ap.add_argument("-e", "--eyes", help="scan faces for eyes", action="store_true")
 # ap.add_argument("-v", "--video", help = "include this flag to scan from live video feed", action="store_true")
 #	Parse our args
 args = vars(ap.parse_args())
