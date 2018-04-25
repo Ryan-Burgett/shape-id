@@ -53,7 +53,7 @@ class dimension:
 				org = (corners[i]+corners[j])/2
 				distance[k] = cv2.arcLength(line, false)
 				cv2.putText(img, distance[k], org, font, size, color, 1, LINE_8, false)
-				k++
+				k+= 1
 
 	#for all perimeters. Can call wherever and on whatever shape there is.
 	def perimeterMeasure(shape):
