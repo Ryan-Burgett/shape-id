@@ -5,7 +5,7 @@ import math
 #if shape = circle, call this
 #parameters:
 	#the contour for the shape.
-	#the image that it comes from?
+	#the image that it comes from
 	#the number of vertexes--polygons only
 class dimension:
 #How want these to be given back to the user?
@@ -13,19 +13,16 @@ class dimension:
 		#gives the radius and center of the circle:
 		radius, center = cv2.minEnclosingCircle(image)
 		#Calculations:
-		diameter = 2 * radius
 		circumference = 2 * math.PI * (radius*radius)
 		#Check with the system:
-		peri = perimeterMeasure(circle);
 		print("The radius of this circle is: " + radius + "\n")
-		print("The Perimeter of this circle is: "+peri+"\n")
+		print("The Perimeter of this circle is: "+circumference+"\n")
 	
 	#ellipse = weird circle
 	def ellipseDimensions(ellipse):
 		peri = perimeterMeasure(ellipse)
 		#diameters/radii:
 		(majRad, center) = cv2.minEnclosingCircle(ellipse)
-		#TO DO: What is the minor radius? How to find it?
 		print("The perimeter of this ellipse is: " + peri+"\n")
 		print("The major radius of this ellipse is: "+majRad+"\n")
 	
