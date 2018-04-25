@@ -42,12 +42,12 @@ class dimension:
 		numLens = numVerts + (numVerts / 2)
 		distance[numLens]
 		#find the individual lengths and diagonals of the polygon:
-		for(i = 0; i < numVerts; i++):
+		for i in range(0, numVerts):
 			color = (255, 0, 0)
 			font = 3;
 			size = 2;
 			#draw the different lengths/diagonals:
-			for(j = i; j < numVerts; j++):
+			for j in range(i, numVerts):
 				line = cv2.line(img, corners[i],corners[j],color, size)
 				org = (corners[i]+corners[j])/2
 				distance[k] = cv2.arcLength(line, false)
