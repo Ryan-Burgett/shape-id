@@ -35,7 +35,10 @@ class dimension:
 		corners[] = cv2.goodFeaturesToTrack(polygon, numVerts, 0.1, 1
 			[, corners[][, [, 2[, true[, 0.01]]]]])
 		numLens = numVerts + (numVerts / 2)
-		num = (numVerts/2) + 1
+		if(numVerts % 2 == 0):
+			num = numVerts / 2
+		else:
+			num = int(numVerts/2) + 1
 		distance[numLens]
 		#find the individual lengths and diagonals of the polygon:
 		for i in range(0, num):
