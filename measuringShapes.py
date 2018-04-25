@@ -47,7 +47,7 @@ class dimension:
 			font = 3;
 			size = 2;
 			#draw the different lengths/diagonals:
-			for(j = 0; j < numVerts; j++):
+			for(j = i; j < numVerts; j++):
 				line = cv2.line(img, corners[i],corners[j],color, size)
 				org = (corners[i]+corners[j])/2
 				distance[k] = cv2.arcLength(line, false)
