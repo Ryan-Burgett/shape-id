@@ -14,7 +14,7 @@ class ShapeDetector:
 		
 		#	OpenCV says that the second parameter passed to the function should be between
 		#	one and five percent of the contour perimeter to get the best approximation,
-		#	So here I have used three percent. This may be adjusted after testing.
+		#	So here I have used one percent. This may be adjusted after testing.
 		approximation = cv2.approxPolyDP(contour, 0.01 * perimeter, True)
 		
 		if len(approximation) == 3: 	#	If the shape has 3 vertices, must be a triangle
