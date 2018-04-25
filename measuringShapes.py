@@ -1,59 +1,38 @@
 import cv2
-import numpy as np
-import math
 
-#if shape = circle, call this
-#parameters:
-	#the contour for the shape.
-	#the image that it comes from
-	#the number of vertexes--polygons only
 class dimension:
-#How want these to be given back to the user?
-	def circleDimensions(circle):
-		#gives the radius and center of the circle:
-		radius, center = cv2.minEnclosingCircle(image)
-		#Calculations:
-		circumference = 2 * math.PI * (radius*radius)
-		#Check with the system:
+	def __init__(self):
+		pass
+		
+	def circleDimensions(self, circle):
+		(radius, center) = cv2.minEnclosingCircle(circle)
+		perimeter = self.perimeterMeasure(circle)
 		print("The radius of this circle is: " + radius + "\n")
-		print("The Perimeter of this circle is: "+circumference+"\n")
+		print("The Perimeter of this circle is: " + perimeter + "\n")
 	
-	#ellipse = weird circle
-	def ellipseDimensions(ellipse):
-		peri = perimeterMeasure(ellipse)
-		#diameters/radii:
+	def ellipseDimensions(self, ellipse):
+		peri = self.perimeterMeasure(ellipse)
 		(majRad, center) = cv2.minEnclosingCircle(ellipse)
 		print("The perimeter of this ellipse is: " + peri+"\n")
-		print("The major radius of this ellipse is: "+majRad+"\n")
+		print("The major radius of this ellipse is: " + majRad + "\n")
 	
-	#if the shape is some kind of polygon(triangle --> decagon+) call this.
-	def polygonDimensions(img, polygon, numVerts):
-		i = 0; k = 0
-		perimeter = perimeterMeasure(polygon)
-		#find the vertexes:
-		corners[numVerts]
-		corners[] = cv2.goodFeaturesToTrack(polygon, numVerts, 0.1, 1
-			[, corners[][, [, 2[, true[, 0.01]]]]])
+	def polygonDimensions(self, img, polygon):
+		#perimeter = self.perimeterMeasure(polygon)
+		perimeter = cv2.arcLength(polygon, True)
+		numVerts = len(cv2.approxPolyDP(polygon, 0.01 * perimeter, True))
+		corners = cv2.goodFeaturesToTrack(polygon, numVerts, 0.1, 15)
 		numLens = numVerts + (numVerts / 2)
-		if(numVerts % 2 == 0):
-			num = numVerts / 2
-		else:
-			num = int(numVerts/2) + 1
-		distance[numLens]
-		#find the individual lengths and diagonals of the polygon:
+		num = int(numVerts/2) + 1
 		for i in range(0, num):
-			color = (255, 0, 0)
-			font = 3;
-			size = 2;
-			#draw the different lengths/diagonals:
 			for j in range(i, numVerts):
-				line = cv2.line(img, corners[i],corners[j],color, size)
-				org = (corners[i]+corners[j])/2
-				distance[k] = cv2.arcLength(line, false)
-				cv2.putText(img, distance[k], org, font, size, color, 1, LINE_8, false)
-				k+= 1
+				#Draw diagonals
+				line = cv2.line(img, corners[i],corners[j],(255, 0, 0), 2)
+				x = int((corners[i][:0] + corners[j][:0])/2)
+				y = int((corners[i][:1] + corners[j][:1])/2)
+				t = cv2.arcLength(line, false)
+				cv2.putText(img, t, (x,y), 3, 2, (255, 0, 0), 1, LINE_8, false)
+		return img
 
-	#for all perimeters. Can call wherever and on whatever shape there is.
 	def perimeterMeasure(shape):
-		perimeter = cv2.arcLength(shape, true);
-		return perimeter;
+		perimeter = cv2.arcLength(shape, True)
+		return perimeter
