@@ -2,8 +2,6 @@ import cv2
 import numpy as np
 import math
 
-PI = 3.1415926
-
 #if shape = circle, call this
 #parameters:
 	#the contour for the shape.
@@ -16,7 +14,7 @@ class dimension:
 		radius, center = cv2.minEnclosingCircle(image)
 		#Calculations:
 		diameter = 2 * radius
-		circumference = 2 * PI * (radius*radius)
+		circumference = 2 * math.PI * (radius*radius)
 		#Check with the system:
 		peri = perimeterMeasure(circle);
 		print("The radius of this circle is: " + radius + "\n")
